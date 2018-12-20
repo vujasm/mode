@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+	<title>MANU-SQUARE Ontology Authoring Tool</title>
+	<h:outputStylesheet name="css/login.css" />
+	<style>h3 {
+  text-align: center;
+}
+</style>
+</h:head>
+
+<h:body>
+
+
+
+<h:form id="form" prependId="false">
+
+	<p:growl id="loginErrorMessage" sticky="true" showDetail="true" life="2000" />
+ <p:graphicImage url="/resources/img/manusquare-logo-colour.svg"  style="height:80px"/>
+
+	
+
+	
+	<h3>Welcome</h3>
+	<h3>MANU-SQUARE Ontology Authoring Tool </h3>
+	
+	<p:panelGrid columns="1" styleClass="ui-fluid center ui-noborder">
+	
+	
+			<h3>Please sign in to continue</h3>
+			<p:outputLabel value="Login failed!" styleClass="red" rendered="${!empty param['error']}" />
+			<p:inputText id="username" placeholder="User name" required="#{param.validateOnLogin}" value="admin"/>
+			<p:password id="password" placeholder="Password" required="#{param.validateOnLogin}" value="***"/>
+ 			<p:commandButton  id="login" value="Sign in" action="/editor.xhtml?faces-redirect=true" ajax="false" update="loginErrorMessage, form">
+ 				<f:param name="validateOnLogin" value="true"/>
+			</p:commandButton>
+			<p:commandLink value="Forgot my password"
+				title="Forgot my password"
+				action="/editor.xhtml?faces-redirect=true"
+				 id="forgottenPwdId" ajax="false" update="@form">
+				 <f:param name="validateOnLogin" value="false"/>
+			</p:commandLink>
+			<p:commandLink value="Sign up for account"
+				title="Sign up for account"
+				action="/editor.xhtml?faces-redirect=true"
+				 id="signUpId" ajax="false" update="@form">
+				 <f:param name="validateOnLogin" value="false"/>
+			</p:commandLink>
+		</p:panelGrid>
+</h:form>
+
+
+</h:body>
+</html>

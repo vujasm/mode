@@ -1,0 +1,18 @@
+package manusquare.service.util;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExtractedTerm {
+	
+	
+	private String term;
+	
+	private String description;
+	
+
+}

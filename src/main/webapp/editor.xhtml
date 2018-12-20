@@ -1,0 +1,340 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view>
+        
+    <h:head>
+        <h:outputStylesheet name="main/css/showcase.css" />
+        <h:outputStylesheet name="main/css/sh.css" />
+        
+        <style type="text/css">
+            .ui-layout-north {
+                z-index:20 !important;
+                overflow:visible !important;;
+            }
+            .ui-layout-north .ui-layout-unit-content {
+                overflow:visible !important;
+            }
+            
+            .ui-accordion .ui-accordion-content {
+			    background: #F5F5DC !important;
+			}
+            
+            body {
+                background-color: #FFFFFF;
+            }
+            
+            .CodeMirror {
+				width: 100% !important;
+				font-family: Verdana, Arial, Helvetica, sans-serif !important;
+				font-size: 12px !important;
+			}
+        </style>
+        
+        <style type="text/css">
+    .ui-editor iframe {
+        width:100% !important;
+    }
+</style>
+
+	</h:head>
+
+        <h:body>
+
+<h:form id="form">
+            <p:layout fullPage="true" >
+                <p:layoutUnit id="top" position="north" size="50">
+
+                    <p:menubar style="background:#D3D3D3">
+                        <p:submenu label="Ontology" icon="ui-icon-document">
+                         	<p:menuitem value="Load.." url="#" />
+                            <p:submenu label="Save..">
+                                <p:menuitem value="To database" url="#" />
+                                <p:menuitem value="To file" url="#" />
+                            </p:submenu>
+                            <p:menuitem value="Import from file" url="#" />
+                            <p:menuitem value="Export to file" url="#" />
+                        </p:submenu>
+
+                        <p:submenu label="Rules" icon="ui-icon-document">
+                           <p:menuitem value="Load.." url="#" />
+                            <p:submenu label="Save..">
+                                <p:menuitem value="To database" url="#" />
+                                <p:menuitem value="To file" url="#" />
+                            </p:submenu>
+                            <p:menuitem value="Import from file" url="#" />
+                            <p:menuitem value="Export to file" url="#" />
+                        </p:submenu>
+
+ 						<p:submenu label="Reasoner" icon="ui-icon-gear">
+                            <p:menuitem value="Start" icon="ui-icon-play" url="#" />
+                            <p:menuitem value="Stop" icon="ui-icon-stop" url="#" />
+                            <p:menuitem value="Synchronize"  icon="ui-icon-refresh" url="#" />
+                            <p:separator />
+                            <p:menuitem value="HermiT" url="#" />
+                            <p:menuitem value="JFact" url="#" />
+                        </p:submenu>
+                        
+                        
+                        <p:submenu label="Query" icon="ui-icon-search">
+                        	<p:menuitem value="Run" icon="ui-icon-play" url="#" />
+                            <p:menuitem value="Clear"  icon="ui-icon-refresh" url="#" />
+                        </p:submenu>
+                         
+                         <p:submenu label="Term Extraction" icon="ui-icon-gear">
+                            <p:menuitem value="Import text.." icon="ui-icon-play" url="#" />
+                            <p:menuitem value="Run extraction.." icon="ui-icon-stop" url="#" />
+                            <p:separator />
+                        </p:submenu>
+                      
+		
+                         <p:submenu label="Window">
+                             <p:submenu label="Show tab..">
+                                     <p:menuitem value="Classes tab" action="#{appView.renderShowTab('classTab')}" update=":form:editorsTabView" ajax="true"/>
+                                     <p:menuitem value="Rules tab" action="#{appView.renderShowTab('ruleTab')}" update=":form:editorsTabView" ajax="true"/>
+                                     <p:menuitem value="SPARQL tab" action="#{appView.renderShowTab('queryTab')}" update=":form:editorsTabView" ajax="true"/>
+                                     <p:menuitem value="Term Extraction tab" action="#{appView.renderShowTab('termExtractionTab')}" update=":form:editorsTabView" ajax="true"/>
+                                     <p:menuitem value="Reasoner log" action="#{appView.renderShowTab('reasonerTab')}" update=":form:editorsTabView" ajax="true"/>
+                                </p:submenu>
+                        </p:submenu>
+                        
+                         
+                        <p:submenu label="Help">
+                            <p:submenu label="Search" icon="ui-icon-search">
+                                <p:submenu label="Text">
+                                     <p:menuitem value="Classes" url="#" />
+                                     <p:menuitem value="Properties" url="#" />
+                                     <p:menuitem value="Instances" url="#" />
+                                     <p:menuitem value="Rules" url="#" />
+                                </p:submenu>
+                               <p:submenu label="IRI">
+                                     <p:menuitem value="Classes" url="#" />
+                                     <p:menuitem value="Properties" url="#" />
+                                     <p:menuitem value="Instances" url="#" />
+                                     <p:menuitem value="Rules" url="#" />
+                                </p:submenu>
+                                
+                            </p:submenu>
+                             <p:menuitem value="About" url="#" />
+                                              <p:menuitem value="User manual" url="#" />
+                        </p:submenu>
+                      
+                      
+                       
+      
+                       
+                        <p:menuitem value="Quit" url="#" />
+                         <f:facet name="options">
+                         <p:graphicImage url="/resources/img/manusquare-logo-colour.svg"  style="height:30px"/>
+                         <p:spacer width="30px"/>
+            <p:outputLabel value="Welcome, admin!"/>
+            <p:spacer width="10px"/>
+
+            <p:commandButton value="Logout" icon="ui-icon-home" action="/login.xhtml?faces-redirect=true" />
+        </f:facet>
+                    </p:menubar>
+                    
+                </p:layoutUnit>
+
+                <p:layoutUnit id="bottom" position="south" size="40">
+                    
+                </p:layoutUnit>
+
+                <p:layoutUnit id="left" position="west" size="400" resizable="true" closable="false" collapsible="false" header="Ontology Resources" minSize="200">
+                
+                   <h:panelGrid columns="2">
+			           				 <h:outputLabel value="Search" />
+			            <p:inputText id="txt1" value="#{treeView.searchField}" required="false" label="Text 1">
+			            </p:inputText>
+           					 </h:panelGrid>
+                       
+               
+                    <p:accordionPanel id="accordionPanel">
+                        
+                         <p:tab title="Classes">
+                         
+				                        <p:tree id="tree" value="#{treeView.root}" var="node" style="border:none;background-color:#F5F5DC;margin-left:-30px;width:400px" 
+				                        	selectionMode="single">
+				        <p:treeNode>
+				            <h:outputText value="#{node}" />
+				        </p:treeNode>
+				    </p:tree>
+				            <p:contextMenu for="tree">
+				        <p:menuitem value="New.." update="tree"  icon="pi pi-search" />
+				        <p:menuitem value="Delete" update="tree" icon="pi pi-times"/>
+				    </p:contextMenu>
+				    
+                          </p:tab>
+
+                        <p:tab title="Properties">
+                            <h:outputText value="list properties" />
+                        </p:tab>
+
+                        <p:tab title="Instances">
+                            <h:outputText value="list instances" />
+                        </p:tab>
+                        <p:tab title="Rules">
+                            <h:outputText value="list rules" />
+                        </p:tab>
+                    </p:accordionPanel>
+                </p:layoutUnit>
+
+                <p:layoutUnit id="right" position="east" size="250" header="Notes/Comments" resizable="true" closable="true" collapsible="true"
+                              style="text-align:center">
+
+                    <p:lightBox style="text-align:center;margin-top:20px;">
+                        <h:outputLink value="#{request.contextPath}/resources/demo/images/nature/nature1.jpg" title="Nature 1" style="margin-bottom:5px;">
+                            <p:graphicImage name="demo/images/nature/nature1.jpg" width="150"/>
+                        </h:outputLink>
+
+                        <h:outputLink value="#{request.contextPath}/resources/demo/images/nature/nature2.jpg" title="Nature 2" style="margin-bottom:2px;">
+                            <p:graphicImage name="demo/images/nature/nature2.jpg" width="150"/>
+                        </h:outputLink>
+
+                        <h:outputLink value="#{request.contextPath}/resources/demo/images/nature/nature3.jpg" title="Nature 3" style="margin-bottom:2px;">
+                            <p:graphicImage name="demo/images/nature/nature3.jpg" width="150"/>
+                        </h:outputLink>
+
+                        <h:outputLink value="#{request.contextPath}/resources/demo/images/nature/nature4.jpg" title="Nature 4" style="margin-bottom:2px;">
+                            <p:graphicImage name="demo/images/nature/nature4.jpg" width="150"/>
+                        </h:outputLink>
+                    </p:lightBox>
+
+                    <p:commandButton value="Show Dialog" onclick="PF('dlg').show();" type="button" style="margin-top:10px" rendered="false"/>
+
+                </p:layoutUnit>
+
+                <p:layoutUnit id="center" position="center">
+                
+
+			<p:tabView scrollable="true" id="editorsTabView">
+			        <p:tab title="Class Editor" rendered="#{appView.getEditorTabState('classTab')}" closable="true">
+			            <h:panelGrid columns="2" cellpadding="10">
+			                <h:outputText value="IRI:" />
+			                <p:inputText  value="#{classEditorView.iri}" size="100"/>
+			            </h:panelGrid>
+			            
+			            <p:dataTable id="annotations" var="ann" value="#{classEditorView.annotations}" 
+			            		resizableColumns="true" reflow="true" style="margin-bottom:20px">
+					        <f:facet name="header">
+					        	Annotations
+					        </f:facet>
+					        <p:column headerText="annotation">
+					            <h:outputText value="#{ann.annotation}" />
+					        </p:column>
+					        <p:column headerText="value">
+					            <h:outputText value="#{ann.value}" />
+					        </p:column>
+					        <p:column headerText="lang">
+					            <h:outputText value="#{ann.lang}" />
+					        </p:column>
+    				</p:dataTable>
+			            
+			        </p:tab>
+			        
+			        
+			        <p:tab title="Rules Editor" closable="true" rendered="#{appView.getEditorTabState('ruleTab')}">
+			        <p:menubar style="border:1; width:200px">
+			          <p:menuitem value="New" url="#" icon="ui-icon-plus" />
+			          <p:menuitem value="Edit" url="#" icon="ui-icon-pencil" />
+			          <p:menuitem value="View all" url="#" icon="ui-icon-plus" />
+			        </p:menubar>
+			            <h:panelGrid columns="4" cellpadding="2" width="80%">
+			              
+			              <p:outputLabel value="Rule ID:"/>
+			              <p:inputText value="#{ruleEditorView.rule.id}" disabled="true"/>
+			              <p:outputLabel value="Rule Name:"/>
+			              <p:inputText value="#{ruleEditorView.rule.name}"/>
+			              
+			            </h:panelGrid>
+			            <h:panelGrid columns="1" cellpadding="2" width="80%">
+			           		 <p:outputLabel value="Rule Description:"/>
+			              <p:inputText value="#{ruleEditorView.rule.description}" size="100"/>
+			              </h:panelGrid>
+			             <p:outputLabel value="Rule body:"/>
+			             <h:panelGrid styleClass="ruleBlock" width="100%" border="1">
+			              	<pe:codeMirror id="codeMirrorRule" value="aaa" 
+			              	lineNumbers="true" mode="sparql"  theme="eclipse"/>
+			              </h:panelGrid>
+			              <p:commandButton action="#" id="saveRule"  
+									icon="ui-icon-disk" value="Save changes" title="Save changes" />
+			        </p:tab>
+			        
+			        <p:tab title="SPARQL Query" closable="true" rendered="#{appView.getEditorTabState('queryTab')}">
+			            <h:panelGrid columns="1" width="100%">
+								<p:panel id="toggleableQueryPanel" header="Query" toggleable="true" toggleSpeed="500" closeSpeed="500"
+									widgetVar="panel" style="margin-bottom:20px">
+									<h:panelGrid styleClass="sparqlBlock" width="100%" border="1">
+			              				<pe:codeMirror id="codeMirrorSparql" value="aaa" 
+			              			lineNumbers="true" mode="sparql"  theme="eclipse"/>
+			             				</h:panelGrid>
+								</p:panel>
+								<p:commandButton action="#" id="executeQuery"  
+									icon="ui-icon-play" value="Execute query" title="Execute query" />
+								<p:panel id="toggleableResultsPanel" header="Results" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" style="margin-bottom:20px">
+									
+								</p:panel>
+
+			            </h:panelGrid>
+			        </p:tab>
+			        
+			         <p:tab title="Terms Extraction" closable="true" rendered="#{appView.getEditorTabState('termExtractionTab')}">
+			         		 <p:commandButton action="#" id="iconOnly" style="margin-right:20px;" icon="ui-icon-play" value="Extract terms/entities" title="Run" />
+			         		 
+							<p:textEditor widgetVar="editorExtraction"  toolbarVisible="false"	
+									height="300" style="margin-bottom:10px" placeholder="Enter your content">
+							</p:textEditor>
+
+						<p:dataTable var="extractedTerm" value="#{termExtractionView.extractedTerms}">
+							<f:facet name="header">Results</f:facet>
+							<p:column headerText="Term" filterable="true" sortable="true" filterBy="#{extractedTerm.term}" sortBy="#{extractedTerm.term}">
+								<h:outputText value="#{extractedTerm.term}" />
+							</p:column>
+
+							<p:column headerText="Description" filterable="true" sortable="true" filterBy="#{extractedTerm.description}" sortBy="#{extractedTerm.description}">
+								<h:outputText value="#{extractedTerm.description}" />
+							</p:column>
+							
+							<p:column style="width:32px;text-align: center">
+             					<p:commandButton icon="ui-icon-search" title="move">
+                				<f:setPropertyActionListener value="#{car}" target="#{dtSelectionView.selectedCar}" />
+            					</p:commandButton>
+        					</p:column>
+							<f:facet name="footer"> In total there are #{termExtractionView.extractedTerms.size()} terms</f:facet>
+						</p:dataTable>
+					</p:tab>
+					
+			        <p:tab title="Reasoner Log" closable="true" rendered="#{appView.getEditorTabState('reasonerTab')}">
+			            <h:panelGrid columns="1" cellpadding="10">
+			                <p:inputTextarea rows="20" cols="120" autoResize="false" value="#{reasonerView.log}"/>
+			            </h:panelGrid>
+			        </p:tab>
+			    </p:tabView>
+
+                </p:layoutUnit>
+
+            </p:layout>
+
+            <p:dialog header="Basic Dialog" widgetVar="dlg" modal="true">
+                <h:outputText value="Resistance to PrimeFaces is futile!" />
+            </p:dialog>
+            
+            <script language="javascript" src="#{request.contextPath}/resources/main/js/sh.js"></script>
+            <script language="javascript">
+                SyntaxHighlighter.all();
+            </script>
+		</h:form>
+		
+        </h:body>
+        
+
+
+    </f:view>
+    
+    
+</html>
